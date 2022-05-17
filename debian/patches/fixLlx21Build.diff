@@ -1,0 +1,46 @@
+Fix build under GCC 9.4 for LliureX 21 Ubuntu Focal and derivatives
+--- a/autologin.c
++++ b/autologin.c
+@@ -98,7 +98,7 @@
+ //{{{ Written format packing
+ 
+ #if !__has_include(<sys/random.h>)
+-static ssize_t getrandom (void* buf, size_t buflen, unsigned flags [[maybe_unused]])
++static ssize_t getrandom (void* buf, size_t buflen, unsigned flags)
+ {
+     int r = -1, fd = open (_PATH_DEV "random", O_RDONLY);
+     if (fd >= 0) {
+@@ -284,7 +284,7 @@
+ 
+ //}}}-------------------------------------------------------------------
+ 
+-int pam_sm_authenticate (pam_handle_t* pamh, int flags [[maybe_unused]], int argc, const char** argv)
++int pam_sm_authenticate (pam_handle_t* pamh, int flags, int argc, const char** argv)
+ {
+     static bool s_tried_already = false;
+     if (s_tried_already) {
+@@ -338,7 +338,7 @@
+     return result;
+ }
+ 
+-int pam_sm_chauthtok (pam_handle_t* pamh [[maybe_unused]], int flags [[maybe_unused]], int argc [[maybe_unused]], const char** argv [[maybe_unused]])
++int pam_sm_chauthtok (pam_handle_t* pamh, int flags, int argc, const char** argv)
+ {
+     if (!(flags & PAM_UPDATE_AUTHTOK) || (flags & PAM_PRELIM_CHECK))
+ 	return PAM_IGNORE;
+@@ -366,11 +366,11 @@
+     return PAM_SUCCESS;
+ }
+ 
+-int pam_sm_setcred (pam_handle_t* pamh [[maybe_unused]], int flags [[maybe_unused]], int argc [[maybe_unused]], const char** argv [[maybe_unused]])
++int pam_sm_setcred (pam_handle_t* pamh, int flags, int argc, const char** argv)
+     { return PAM_SUCCESS; }
+-int pam_sm_acct_mgmt (pam_handle_t* pamh [[maybe_unused]], int flags [[maybe_unused]], int argc [[maybe_unused]], const char** argv [[maybe_unused]])
++int pam_sm_acct_mgmt (pam_handle_t* pamh, int flags, int argc, const char** argv)
+     { return PAM_IGNORE; }
+-int pam_sm_open_session (pam_handle_t* pamh [[maybe_unused]], int flags [[maybe_unused]], int argc [[maybe_unused]], const char** argv [[maybe_unused]])
++int pam_sm_open_session (pam_handle_t* pamh, int flags, int argc, const char** argv)
+     { return PAM_IGNORE; }
+-int pam_sm_close_session (pam_handle_t* pamh [[maybe_unused]], int flags [[maybe_unused]], int argc [[maybe_unused]], const char** argv [[maybe_unused]])
++int pam_sm_close_session (pam_handle_t* pamh, int flags, int argc, const char** argv)
+     { return PAM_IGNORE; }
