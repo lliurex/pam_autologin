@@ -123,4 +123,4 @@ next login will be saved, and your life will be easy once again.
 
 ## Bugs
 
-Report bugs on the github [bug tracker](https://github.com/msharov/pam_autologin/issues)
+Report bugs on the [bug tracker](https://sourceforge.net/p/pam_autologin/tickets/)
