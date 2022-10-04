@@ -1,3 +1,6 @@
+# Author: Mike Sharov
+# Project homepage: https://sourceforge.net/projects/pam-autologin/
+
 # PAM Autologin
 
 This module logs in automatically with saved username and password.
