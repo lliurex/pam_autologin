@@ -1,4 +1,4 @@
-pam-autologin (1.1-1llx21) focal; urgency=medium
+pam-autologin (1.2-1llx21) focal; urgency=medium
 
   * First focal release
   * Patches for building against GCC 9.4
